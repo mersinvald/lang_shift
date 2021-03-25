@@ -206,7 +206,7 @@ void shift_once_disable(void) {
 
 void shift_once_process(Key key, keyrecord_t* record) {
   bool down = record->event.pressed;
-  
+
   if (shift_once_disable_stage == 1) {
     shift_once_disable_stage = 0;
     shift_activate_from_user(false);
@@ -343,7 +343,7 @@ void lang_synchronize(void) {
       unregister_code(KC_LSHIFT);
       unregister_code(KC_LALT);
 
-      // Костыль, потому что при зажатом шифте если хочется нажать клавишу, которая переключает язык, то шифт слетает... 
+      // Костыль, потому что при зажатом шифте если хочется нажать клавишу, которая переключает язык, то шифт слетает...
       if (shift_current == 1) {
         register_code(KC_LSHIFT);
       }
@@ -431,7 +431,7 @@ void lang_shift_press_key(Key key, bool down) {
       .time = timer_read(),
     },
   };
-  
+
   lang_shift_process_record(key, &record);
 }
 
@@ -467,7 +467,7 @@ bool lang_shift_process_custom_keycodes(Key key, keyrecord_t* record) {
       if (down) {
         if (lang_should_be == 0) {
           lang_activate_from_user(1);
-          layer_on(2);  
+          layer_on(2);
         } else {
           lang_activate_from_user(0);
           layer_off(2);
@@ -482,21 +482,25 @@ bool lang_shift_process_custom_keycodes(Key key, keyrecord_t* record) {
     case LA_CAPS:
       if (down) {
         lang_current_change = LANG_CHANGE_CAPS;
+        lang_current_change_manually_set = true;
       }
       return false;
     case LA_ALSH:
       if (down) {
         lang_current_change = LANG_CHANGE_ALT_SHIFT;
+        lang_current_change_manually_set = true;
       }
       return false;
     case LA_CTSH:
       if (down) {
         lang_current_change = LANG_CHANGE_CTRL_SHIFT;
+        lang_current_change_manually_set = true;
       }
       return false;
     case LA_WISP:
       if (down) {
         lang_current_change = LANG_CHANGE_WIN_SPACE;
+        lang_current_change_manually_set = true;
       }
       return false;
     case AG_3DOT:
@@ -504,7 +508,7 @@ bool lang_shift_process_custom_keycodes(Key key, keyrecord_t* record) {
         lang_shift_tap_key(AG_DOT);
         lang_shift_tap_key(AG_DOT);
         lang_shift_tap_key(AG_DOT);
-      }    
+      }
       return false;
       break;
     case AG_CMSP:

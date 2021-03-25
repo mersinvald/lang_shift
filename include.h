@@ -304,12 +304,14 @@ enum LangChange {
 };
 
 // Переменная, в которой можно менять текущий способ смены языка
-enum LangChange lang_current_change = 
+enum LangChange lang_current_change =
 #ifdef LANG_CHANGE_DEFAULT
   LANG_CHANGE_DEFAULT;
 #else
   #error "You must specify default language change method by defining variable LANG_CHANGE_DEFAULT."
 #endif
+
+bool lang_current_change_manually_set = false;
 
 void shift_activate(Shift shift);
 void shift_activate_from_user(Shift shift);
